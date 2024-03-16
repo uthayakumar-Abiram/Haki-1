@@ -1,0 +1,37 @@
+{
+  "name": "login-",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "server": "nodemon backend/index.js",
+    "dev": "nodemon server.js",
+    "prod": "set NODE_ENV=production&&nodemon backend/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.41.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "mailgen": "^2.0.28",
+    "mongoose": "^8.0.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.8",
+    "path": "^0.12.7",
+    "sharp": "^0.33.1",
+    "slugify": "^1.6.6",
+    "stripe": "^14.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
