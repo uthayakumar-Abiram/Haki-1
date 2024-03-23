@@ -8,9 +8,9 @@ const PayButton = ({ orderItems ,orderId ,total}) => {
 console.log(orderId)
   const handleCheckout = () => {
     console.log({orderItems})
-    axios .post(`/api/pay/checkout`, {
+    axios .post(`${process.env.REACT_APP_SERVER_URL}/api/pay/checkout`, {
         orderItems,userInfo  ,orderId ,total
-      })
+      },{withCredentials:true})
       .then((response) => {
         if (response.data.url) {
           window.location.href = response.data.url;

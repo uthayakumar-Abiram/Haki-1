@@ -16,7 +16,7 @@ export const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get("/api/product/");
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/product/`,{withCredentials:true});
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -34,7 +34,7 @@ export const listProductsDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/product/${id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/product/${id}`,{withCredentials:true});
 
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -60,9 +60,10 @@ export const productsAdd = (formData ) => async (dispatch) => {
     };
     console.log(formData.value);
     const { data } = await axios.post(
-      "/api/product/",
+      `${process.env.REACT_APP_SERVER_URL}/api/product/`,
        formData,
       config
+      ,{withCredentials:true}
     );
       
     dispatch({

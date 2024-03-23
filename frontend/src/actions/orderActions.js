@@ -31,7 +31,7 @@ export const createOrder = (order) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(`/api/order`, order, config);
+    const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order`, order, config,{withCredentials:true});
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
@@ -54,7 +54,7 @@ export const getOrderDetails = (id) => async (dispatch,) => {
       type: ORDER_DETAILS_REQUEST,
     });
 
-     const { data } = await axios.get(`/api/order/${id}`);
+     const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/order/${id}`,{withCredentials:true});
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
@@ -88,9 +88,10 @@ export const payOrder =
       };
 
       const { data } = await axios.put(
-        `/api/order/${orderId}/pay`,
+        `${process.env.REACT_APP_SERVER_URL}/api/order/${orderId}/pay`,
         paymentResult,
         config
+        ,{withCredentials:true}
       );
 
       dispatch({
@@ -120,7 +121,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
 
    
 
-    const { data } = await axios.get(`/api/order/myorders`);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/order/myorders`,{withCredentials:true});
 
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,
@@ -146,7 +147,7 @@ export const listOrders = () => async (dispatch, getState) => {
       type: ORDER_LIST_ALL_REQUEST,
     });
    
-    const { data } = await axios.get(`/api/order/abi`);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/order/abi`,{withCredentials:true});
 
     dispatch({
       type: ORDER_LIST_ALL_SUCCESS,
