@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { PayPalButton } from "react-paypal-button-v2";
-import StripeCheckout from "react-stripe-checkout"
-import { StripeProvider } from 'react-stripe-elements';
 import {
   Row,
   Col,
@@ -19,10 +15,10 @@ import { getOrderDetails, payOrder } from "../actions/orderActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { ORDER_PAY_RESET } from "../constants/orderConstants";
-import { Axios } from "../utils";
+
 
 const OrderScreen = () => {
-  const [sdkReady, setSdkReady] = useState(false);
+
   const dispatch = useDispatch();
   const { id } = useParams();
 

@@ -9,44 +9,7 @@ import Message from "../components/Message";
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Pagination, Autoplay } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Link } from 'react-router-dom';
-// import video from '../game.mp4';
-// import t3d from '../assets/img/t3d.png';
-import Carousel from 'react-bootstrap/Carousel';
 
-// import "./style.css";
-
-const Banner = () => {
-  const images = [
-   
-  ];
-  return (
-    <Swiper
-      pagination={true}
-      modules={[Pagination, Autoplay]}
-      className="mySwiper"
-      loop={true}
-      speed={300}
-      
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false,
-      }}
-    >
-      {images.map((image) => {
-        return (
-          <SwiperSlide key={image.id}>
-            <img src={image.url} alt="image" />
-          </SwiperSlide>
-        );
-      })}
-    </Swiper>
-  );
-};
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
