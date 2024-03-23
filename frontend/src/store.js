@@ -57,12 +57,12 @@ const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
 };
 
-const middleware = [thunk];
+
 
 const store = legacy_createStore(
   reducer,
   initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 export default store;
