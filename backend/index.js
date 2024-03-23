@@ -3,7 +3,7 @@ import express from 'express'
 import { notFound,errorHandler} from "./middleware/errorMiddleware.js";
 import cookieParser from 'cookie-parser';
 import dbConnect from "./utils/dbConnect.js";
-
+import cors from "cors";
 const app = express();
 dotenv.config();
 const port =process.env.PORT
@@ -87,6 +87,14 @@ app.post('/api/pay/webhook', express.raw({type: 'application/json'}), (request, 
 app.use(express.json());
 app.use(express.urlencoded( {extended: true }))
 app.use(cookieParser())
+
+
+app.use(cors({
+  origin:process.env.Frontend_url, 
+  credentials: true 
+}
+));
+
 
 app.use("/api/pay",paymentRoutes)
 app.use("/api/users",userRoutes)
