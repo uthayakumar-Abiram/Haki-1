@@ -28,10 +28,10 @@ export const createOrder = (order) => async (dispatch) => {
       headers: {
         "Content-Type": "application/json",
         
-      },
+      },withCredentials:true
     };
 
-    const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order`, order, config,{withCredentials:true});
+    const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/order`, order, config,);
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,

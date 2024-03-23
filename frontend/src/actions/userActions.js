@@ -127,10 +127,10 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+
+      },withCredentials:true
     };
-    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/${id}`, config,{withCredentials:true});
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/${id}`, config);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -161,9 +161,9 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
-      },
+      },withCredentials:true
     };
-    const { data } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/users/profile`, user, config,{withCredentials:true});
+    const { data } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/users/profile`, user, config,);
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
@@ -200,9 +200,9 @@ export const listUsers = () => async (dispatch, getState) => {
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
-      },
+      },withCredentials:true
     };
-    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/`, config,{withCredentials:true});
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/`, config,);
 
     dispatch({
       type: USER_LIST_SUCCESS,
@@ -235,7 +235,7 @@ export const updateRole = (id, role) => async (dispatch) => {
       `${process.env.REACT_APP_SERVER_URL}/api/users/edit/${id}`, // Corrected URL format
       { role },
       console.log(role),
-      config ,{withCredentials:true}
+      config ,
     );
   
 
