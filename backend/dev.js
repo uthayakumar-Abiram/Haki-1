@@ -1,4 +1,4 @@
-import dotenv from "dotenv"
+const dotenv = require( "dotenv")
 dotenv.config()
 module.exports = {
     EMAIL: process.env.EMAIL,  // your email address goes here
