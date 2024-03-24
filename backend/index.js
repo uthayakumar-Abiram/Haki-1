@@ -17,10 +17,10 @@ import stripePackage from "stripe";
 import Order from "./models/Order.js";
 // const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-dotenv.config({ path: path.join(__dirname, 'config', 'config.env') });
+// dotenv.config({ path: path.join(__dirname, 'config', 'config.env') });
 dbConnect()
 
-app.use('/uploads', express.static(path.join(__dirname,'uploads') ) )
+// app.use('/uploads', express.static(path.join(__dirname,'uploads') ) )
 const stripe = stripePackage(process.env.STRIPE_KEY);
 
 
