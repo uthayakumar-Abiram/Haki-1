@@ -4,7 +4,7 @@ const dbConnect = async () => {
   try {
     const mongoString = process.env.DATABASE_URL;
     await mongoose.connect(mongoString, {  
-      useUnifiedTopology: true,
+      useUnifiedTopology: true,useNewUrlParser: true,
 
     });
     console.log('Database Connected');
