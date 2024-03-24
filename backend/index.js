@@ -15,7 +15,7 @@ import paymentRoutes from "./routes/paymantRoute.js"
 import path from 'path';
 import stripePackage from "stripe";
 import Order from "./models/Order.js";
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+// const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 dotenv.config({ path: path.join(__dirname, 'config', 'config.env') });
 dbConnect()
@@ -102,12 +102,12 @@ app.use("/api/order",orderRoutes)
 app.use("/api/product", gameRoutes);
 app.use("/api/upload", uploadRouter);
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, '../frontend/build')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'));
-    });
-}
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname, '../frontend/build')));
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'));
+//     });
+// }
 app.use(notFound)
 app.use(errorHandler)
 app.listen(port, () => {
