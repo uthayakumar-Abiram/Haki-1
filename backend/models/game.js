@@ -1,7 +1,7 @@
-import mongoose from"mongoose"; // Erase if already required
+const mongoose = require("mongoose");
 
 // Declare the Schema of the Mongo model
-var productSchema = new mongoose.Schema(
+const productSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -32,23 +32,25 @@ var productSchema = new mongoose.Schema(
     ],
     ratings: [
       {
-        star: {type:Number},
-        comment:{ type:String},
-        postedby: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        star: { type: Number },
+        comment: { type: String },
+        postedby: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
       },
     ],
     totalrating: {
       type: String,
       default: 0,
     },
-   
-    description:{
-      type: String
-    }
+    description: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
 
 //Export the model
 const Product = mongoose.model("Product", productSchema);
-export default Product;
+module.exports = Product;

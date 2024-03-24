@@ -1,10 +1,19 @@
-import Product from"../models/game.js";
-import User from"../models/userModel.js";
-import asyncHandler from"express-async-handler";
-import slugify from "slugify";
-import validateMongoDbId from "../utils/validateMongodbId.js";
-import fs from"fs";
-import { cloudinaryUploadImg } from "../utils/cloudinar.js";
+// import Product from"../models/game.js";
+// import User from"../models/userModel.js";
+// import asyncHandler from"express-async-handler";
+// import slugify from "slugify";
+// import validateMongoDbId from "../utils/validateMongodbId.js";
+// import fs from"fs";
+// import { cloudinaryUploadImg } from "../utils/cloudinar.js";
+
+const Product = require("../models/game.js");
+const User = require("../models/userModel.js");
+const asyncHandler = require("express-async-handler");
+const slugify = require("slugify");
+const validateMongoDbId = require("../utils/validateMongodbId.js");
+const fs = require("fs");
+const { cloudinaryUploadImg } = require("../utils/cloudinar.js");
+
 // des Auth user/set token
 // route POST /api/product/
 // access admin
@@ -219,7 +228,7 @@ const rating = asyncHandler(async (req, res) => {
   }
 })
 
-export {
+module.exports = {
   createProduct,
   getaProduct,
   getAllProduct,

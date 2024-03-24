@@ -1,9 +1,10 @@
-import fs from"fs";
-import asyncHandler from"express-async-handler";
-import {
+const fs = require("fs");
+const asyncHandler = require("express-async-handler");
+const {
   cloudinaryUploadImg,
   cloudinaryDeleteImg,
-} from "../utils/cloudinar.js";
+} = require("../utils/cloudinar.js");
+
 const uploadImages = asyncHandler(async (req, res) => {
   try {
     const uploader = (path) => cloudinaryUploadImg(path, "images");
@@ -24,6 +25,7 @@ const uploadImages = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
 const deleteImages = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
@@ -33,7 +35,8 @@ const deleteImages = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-export  {
+
+module.exports = {
   uploadImages,
   deleteImages,
 };

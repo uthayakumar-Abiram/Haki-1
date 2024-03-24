@@ -1,17 +1,11 @@
-import express from"express";
-import { uploadImages, deleteImages } from "../Controllers/uploadImgController.js";
-import { protect, isAdmin } from "../middleware/authMiddleware.js";
-import { upload } from "../middleware/image.js";
+const express = require('express');
+const { uploadImages, deleteImages } = require('../Controllers/uploadImgController.js');
+const { protect, isAdmin } = require('../middleware/authMiddleware.js');
+const { upload } = require('../middleware/image.js');
 const router = express.Router();
 
-router.post(
-  "/",
-  protect,
-  isAdmin,
-  upload.array("images", 1),
-  uploadImages
-);
+router.post('/', protect, isAdmin, upload.array('images', 1), uploadImages);
 
-router.delete("/delete-img/:id",protect, isAdmin, deleteImages);
+router.delete('/delete-img/:id', protect, isAdmin, deleteImages);
 
-export default router;
+module.exports = router;

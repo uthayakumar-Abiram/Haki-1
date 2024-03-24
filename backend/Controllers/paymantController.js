@@ -1,6 +1,6 @@
-import express from 'express';
-import stripePackage from "stripe";
-import dotenv from 'dotenv';
+const express = require('express');
+const stripePackage = require('stripe');
+const dotenv = require('dotenv');
 
 dotenv.config();
 const router = express.Router();
@@ -8,8 +8,8 @@ const stripe = stripePackage(process.env.STRIPE_KEY);
 
 const makePayment = async (req, res) => {
   try {
-    const { orderItems,userInfo ,orderId ,total} = req.body;
-    
+    const { orderItems, userInfo, orderId, total } = req.body;
+
     if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
       return res.status(400).json({ error: "Invalid or empty order items" });
     }
@@ -18,11 +18,11 @@ const makePayment = async (req, res) => {
       metadata: {
         order: JSON.stringify(req.body.orderItems),
         user: req.body.userInfo._id,
-        orderID:req.body.orderId,
-        total:req.body.total
+        orderID: req.body.orderId,
+        total: req.body.total
       },
     });
-  
+
     const line_items = req.body.orderItems.map((item) => {
       return {
         price_data: {
@@ -53,5 +53,4 @@ const makePayment = async (req, res) => {
   }
 };
 
-export {makePayment}
-
+module.exports = { makePayment };

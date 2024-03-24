@@ -1,7 +1,7 @@
-import mongoose from "mongoose"; // Erase if already required
+const mongoose = require("mongoose");
 
 // Declare the Schema of the Mongo model
-var libSchema = new mongoose.Schema(
+const libSchema = new mongoose.Schema(
   {
     products: [
       {
@@ -13,12 +13,11 @@ var libSchema = new mongoose.Schema(
         price: Number,
       },
     ],
-   
   },
   {
     timestamps: true,
   }
 );
 
-//Export the model
+// Export the model
 module.exports = mongoose.model("lib", libSchema);

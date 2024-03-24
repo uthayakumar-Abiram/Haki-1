@@ -1,12 +1,12 @@
-import multer from "multer";
-import sharp from "sharp";
-import path from"path";
-import fs from "fs";
+const multer = require("multer");
+const sharp = require("sharp");
+const path = require("path");
+const fs = require("fs");
 
 const storage = multer.diskStorage({
-  filename: function (req,file,cb) {
-    cb(null, file.originalname)
-  }
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
 const filefilter = (req, file, cb) => {
@@ -16,12 +16,12 @@ const filefilter = (req, file, cb) => {
     cb(null, true);
   }
 };
+
 const upload = multer({
-    storage: storage,
+  storage: storage,
   limits: { fieldSize: 10 * 1024 * 1024 },
   fileFilter: filefilter,
 });
-
 
 const productImgResize = async (req, res, next) => {
   if (!req.files) return next();
@@ -50,4 +50,5 @@ const blogImgResize = async (req, res, next) => {
   );
   next();
 };
-export { upload, productImgResize, blogImgResize };
+
+module.exports = { upload, productImgResize, blogImgResize };

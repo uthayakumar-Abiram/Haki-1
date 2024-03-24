@@ -1,26 +1,21 @@
-//top
-import nodemailer from"nodemailer";
-import Mailgen from"mailgen";
-import dotenv from "dotenv"
-dotenv.config()
- var  EMAIL = process.env.EMAIL // your yahoo email address goes here
- var   PASSWORD=process.env.PASS // recently generated password goes here
- var   MAIN_URL= "localhost:6000/"
+const nodemailer = require("nodemailer");
+const Mailgen = require("mailgen");
+const dotenv = require("dotenv");
+dotenv.config();
+const EMAIL = process.env.EMAIL; // your yahoo email address goes here
+const PASSWORD = process.env.PASS; // recently generated password goes here
+const MAIN_URL = "localhost:6000/";
 
-
-
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: "Gmail",
-  port:587,
+  port: 587,
   auth: {
     user: EMAIL,
     pass: PASSWORD,
   },
 });
 
-
-
-let MailGenerator = new Mailgen({
+const MailGenerator = new Mailgen({
   theme: "default",
   product: {
     name: "HAKI",
@@ -28,13 +23,11 @@ let MailGenerator = new Mailgen({
   },
 });
 
-
-
 const getBill = (req, res) => {
   const { name, email } = req.body;
-  
-  //login contro
-  let response = {
+
+  //login control
+  const response = {
     body: {
       name,
       intro: "Your INVOICE",
@@ -47,14 +40,14 @@ const getBill = (req, res) => {
           },
         ],
       },
-      
+
       outro: "Thanks for your purchase from HAKI Games",
     },
   };
 
-  let mail = MailGenerator.generate(response);
+  const mail = MailGenerator.generate(response);
 
-  let message = {
+  const message = {
     from: EMAIL,
     to: email,
     subject: "transaction",
@@ -64,14 +57,9 @@ const getBill = (req, res) => {
   transporter
     .sendMail(message)
     .then(() => {
-      return res
-        .status(200)
-        .json({ msg: "you should receive an email from us" });
+      return res.status(200).json({ msg: "you should receive an email from us" });
     })
     .catch((error) => console.error(error));
 };
 
-export{
-
-  getBill,
-};
+module.exports = { getBill };

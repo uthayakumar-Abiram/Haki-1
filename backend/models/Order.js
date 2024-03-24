@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
   {
@@ -9,15 +9,14 @@ const orderSchema = new mongoose.Schema(
     },
     orderItems: [
       {
-        title: { type: String,  },
-        images:
-         [
+        title: { type: String },
+        images: [
           {
             public_id: String,
             url: String,
           },
         ],
-        price: { type: String, },
+        price: { type: String },
         product: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
@@ -28,12 +27,10 @@ const orderSchema = new mongoose.Schema(
     paymentMethod: {
       type: String,
     },
- 
     taxPrice: {
       type: Number,
       default: 0.0,
     },
-  
     totalPrice: {
       type: Number,
       default: 0.0,
@@ -45,7 +42,6 @@ const orderSchema = new mongoose.Schema(
     paidAt: {
       type: Date,
     },
-    
   },
   {
     timestamps: true,
@@ -54,4 +50,4 @@ const orderSchema = new mongoose.Schema(
 
 const Order = mongoose.model("Order", orderSchema);
 
-export default Order;
+module.exports = Order;
