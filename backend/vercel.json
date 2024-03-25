@@ -12,6 +12,13 @@
       "dest": "index.js"
     }
   ]
+  ,"serverlessFunctions": {
+    "node": {
+      "runModes": [
+        "development"
+      ]
+    }
+  }
 }
     
    
