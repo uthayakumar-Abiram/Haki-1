@@ -115,9 +115,9 @@
 // }) 
 const dotenv = require('dotenv');
 const express = require('express');
+const mongoose = require('mongoose');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware.js');
 const cookieParser = require('cookie-parser');
-const dbConnect = require('./utils/dbConnect.js');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes.js');
 const gameRoutes = require('./routes/gameRoute.js');
@@ -131,60 +131,78 @@ const Order = require('./models/Order.js');
 const app = express();
 dotenv.config();
 const port = process.env.PORT;
-dbConnect()
-const stripe = stripePackage(process.env.STRIPE_KEY);
-const endpointSecret = process.env.END_POINT_SECRET;
 
-app.post('/api/pay/webhook', express.raw({ type: 'application/json' }), (request, response) => {
+// MongoDB connection
+const mongoString = process.env.MONGODB_URI;
+mongoose.connect(mongoString, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+}).then(() => {
+  console.log('Database Connected');
+  
+  // Start listening for incoming requests
+  const server = app.listen(port, () => {
+    console.log(`Server Started at ${port}`);
+  });
+  
+  // Webhook endpoint for Stripe
+  const stripe = stripePackage(process.env.STRIPE_KEY);
+  const endpointSecret = process.env.END_POINT_SECRET;
+  
+  app.post('/api/pay/webhook', express.raw({ type: 'application/json' }), (request, response) => {
     const sig = request.headers['stripe-signature'];
     let event;
     let data;
     let eventType;
     try {
-        event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
     } catch (err) {
-        response.status(400).send(`Webhook Error: ${err.message}`);
-        console.log(err);
-        return;
+      response.status(400).send(`Webhook Error: ${err.message}`);
+      console.log(err);
+      return;
     }
-    
+
     data = event.data.object;
     eventType = event.type;
 
     if (eventType === 'checkout.session.completed') {
-        stripe.customers
-            .retrieve(data.customer)
-            .then(async (customer) => {
-                try {
-                    const userId = customer.metadata.user;
-                    const orderId = customer.metadata.orderID;
-                    console.log(orderId);
-                    const order = await Order.findOne({ _id: orderId });
-                    
-                    if (order) {
-                        order.isPaid = true;
-                        order.paidAt = Date.now();
-                        const updatedOrder = await order.save();
-                        return updatedOrder;
-                    } else {
-                        throw new Error('Order not found');
-                    }
-                } catch (error) {
-                    console.error('Error updating order:', error.message);
-                    throw error;
-                }
-            })
-            .catch((err) => console.log(err.message));
+      stripe.customers
+        .retrieve(data.customer)
+        .then(async (customer) => {
+          try {
+            const userId = customer.metadata.user;
+            const orderId = customer.metadata.orderID;
+            console.log(orderId);
+            const order = await Order.findOne({ _id: orderId });
+
+            if (order) {
+              order.isPaid = true;
+              order.paidAt = Date.now();
+              const updatedOrder = await order.save();
+              return updatedOrder;
+            } else {
+              throw new Error('Order not found');
+            }
+          } catch (error) {
+            console.error('Error updating order:', error.message);
+            throw error;
+          }
+        })
+        .catch((err) => console.log(err.message));
     }
     response.send().end();
+  });
+}).catch((error) => {
+  console.error('MongoDB connection error:', error);
 });
 
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: process.env.Frontend_url,
-    credentials: true
+  origin: process.env.Frontend_url,
+  credentials: true
 }));
 app.use('/api/pay', paymentRoutes);
 app.use('/api/users', userRoutes);
@@ -193,8 +211,3 @@ app.use('/api/product', gameRoutes);
 app.use('/api/upload', uploadRouter);
 app.use(notFound);
 app.use(errorHandler);
-
-app.listen(port, () => {
-    console.log(`Server Started at ${port}`);
-});
-
