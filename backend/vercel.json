@@ -3,7 +3,7 @@
   
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/product/",
       "headers": { "cache-control": "no-cache, no-store, must-revalidate", "Access-Control-Allow-Origin": "*" },
       "dest": "index.js"
     }
