@@ -1,9 +1,14 @@
 {
   "version": 2,
-  
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@now/node"
+    }
+  ],
   "routes": [
     {
-      "src": "/api/product/",
+      "src": "/(.*)",
       "headers": { "cache-control": "no-cache, no-store, must-revalidate", "Access-Control-Allow-Origin": "*" },
       "dest": "index.js"
     }
