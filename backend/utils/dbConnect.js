@@ -2,7 +2,7 @@ const mongoose =require("mongoose");
 
 const dbConnect = () => {
   try {
-    const mongoString = process.env.MONGODB_URI
+    const mongoString = process.env.DATABASE_URL
     mongoose.connect(mongoString,{ 
       useNewUrlParser: true,
       useUnifiedTopology: true,
