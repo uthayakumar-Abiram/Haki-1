@@ -120,9 +120,7 @@ const Footer = () => {
       Copyright &copy; 2024 <a href="#">Haki</a>. all rights reserved
     </p>
 
-    <figure class="footer-bottom-img">
-      <img src="./assets/images/footer-bottom-img.png" alt="Online payment companies logo"/>
-    </figure>
+   
   </div>
 </div>
 
