@@ -185,6 +185,7 @@ app.use(cors({
     origin: process.env.Frontend_url,
     credentials: true
 }));
+app.get("/",(req,res)=>res.send('server is running'))
 app.use('/api/pay', paymentRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/order', orderRoutes);
